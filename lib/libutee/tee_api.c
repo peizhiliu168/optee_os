@@ -426,3 +426,26 @@ TEE_Result TEE_CacheInvalidate(char *buf, size_t len)
 {
 	return _utee_cache_operation(buf, len, TEE_CACHEINVALIDATE);
 }
+
+/* Benchmark API call fucntions */
+
+void TEE_AddSctrace(unsigned long id){
+	TEE_Result res = _utee_add_sctrace(id);
+	if (res != TEE_SUCCESS){
+		TEE_Panic(res);
+	}
+}
+
+/*void TEE_GetSctrace(unsigned long return_trace){
+	TEE_Result res = _utee_get_sctrace(return_trace);
+	if (res != TEE_SUCCESS){
+		TEE_Panic(res);
+	}
+}*/
+
+void TEE_ResetSctrace(void){
+	TEE_Result res = _utee_reset_sctrace();
+	if (res != TEE_SUCCESS){
+		TEE_Panic(res);
+	}
+}

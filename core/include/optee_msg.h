@@ -331,4 +331,8 @@ struct optee_msg_arg {
 #define OPTEE_MSG_CMD_UNREGISTER_SHM	5
 #define OPTEE_MSG_FUNCID_CALL_WITH_ARG	0x0004
 
+/* Benchmark */
+#define OPTEE_MSG_RPC_CMD_ADD_SCTRACE 21
+#define OPTEE_MSG_RPC_CMD_RESET_SCTRACE 22
+
 #endif /* _OPTEE_MSG_H */

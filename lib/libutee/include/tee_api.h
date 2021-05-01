@@ -441,4 +441,12 @@ void TEE_BigIntComputeFMM(TEE_BigIntFMM *dest, const TEE_BigIntFMM *op1,
 			  const TEE_BigIntFMM *op2, const TEE_BigInt *n,
 			  const TEE_BigIntFMMContext *context);
 
+/* Benchmark API calls */
+
+void TEE_AddSctrace(unsigned long id);
+
+//void TEE_GetSctrace(unsigned long return_trace);
+
+void TEE_ResetSctrace(void);
+
 #endif /* TEE_API_H */

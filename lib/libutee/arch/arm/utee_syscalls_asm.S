@@ -122,3 +122,9 @@
                      TEE_SCN_CRYP_OBJ_GENERATE_KEY, 4
 
         UTEE_SYSCALL _utee_cache_operation, TEE_SCN_CACHE_OPERATION, 3
+
+        UTEE_SYSCALL _utee_add_sctrace, TEE_SCN_ADD_SCTRACE, 1
+
+        
+        
+        UTEE_SYSCALL _utee_reset_sctrace, TEE_SCN_RESET_SCTRACE, 0

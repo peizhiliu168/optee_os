@@ -80,7 +80,12 @@
 /* End of deprecated Secure Element API syscalls */
 #define TEE_SCN_CACHE_OPERATION			70
 
-#define TEE_SCN_MAX				70
+/* TEE Benchmark syscall numbers */
+#define TEE_SCN_ADD_SCTRACE         71
+//#define TEE_SCN_GET_SCTRACE         72
+#define TEE_SCN_RESET_SCTRACE       72
+
+#define TEE_SCN_MAX				72
 
 /* Maximum number of allowed arguments for a syscall */
 #define TEE_SVC_MAX_ARGS			8

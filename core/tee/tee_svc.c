@@ -13,6 +13,7 @@
 #include <kernel/tee_time.h>
 #include <kernel/trace_ta.h>
 #include <kernel/user_access.h>
+#include <kernel/tee_benchmark.h>
 #include <mm/core_memprot.h>
 #include <mm/mobj.h>
 #include <mm/tee_mm.h>
@@ -1005,4 +1006,21 @@ TEE_Result syscall_set_ta_time(const TEE_Time *mytime)
 		return res;
 
 	return tee_time_set_ta_time((const void *)&s->ctx->uuid, &t);
+}
+
+
+/* TEE syscall wrapper for benchmark */
+TEE_Result syscall_add_sctrace(unsigned long id){
+	tee_ta_add_sctrace(id);
+	return TEE_SUCCESS;
+}
+
+/*TEE_Result syscall_get_sctrace(unsigned long return_trace){
+	tee_ta_get_sctrace(return_trace);
+	return TEE_SUCCESS;
+}*/
+
+TEE_Result syscall_reset_sctrace(void){
+	tee_ta_reset_sctrace();
+	return TEE_SUCCESS;
 }

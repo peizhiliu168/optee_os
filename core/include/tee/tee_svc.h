@@ -74,4 +74,11 @@ TEE_Result syscall_wait(unsigned long timeout);
 TEE_Result syscall_get_time(unsigned long cat, TEE_Time *time);
 TEE_Result syscall_set_ta_time(const TEE_Time *time);
 
+/* TEE syscall wrapper for benchmark */
+TEE_Result syscall_add_sctrace(unsigned long id);
+
+//TEE_Result syscall_get_sctrace(unsigned long return_trace);
+
+TEE_Result syscall_reset_sctrace(void);
+
 #endif /* TEE_SVC_H */
