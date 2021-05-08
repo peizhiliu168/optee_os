@@ -84,8 +84,9 @@
 #define TEE_SCN_ADD_SCTRACE         71
 //#define TEE_SCN_GET_SCTRACE         72
 #define TEE_SCN_RESET_SCTRACE       72
+#define TEE_SCN_GET_TIME_US         73
 
-#define TEE_SCN_MAX				72
+#define TEE_SCN_MAX				73
 
 /* Maximum number of allowed arguments for a syscall */
 #define TEE_SVC_MAX_ARGS			8

@@ -3,7 +3,7 @@
 
 #include "tee_api_types.h"
 
-TEE_Result tee_ta_add_sctrace(unsigned long id);
+TEE_Result tee_ta_add_sctrace(uint64_t id, uint64_t delta, uint32_t allocated);
 
 //TEE_Result tee_ta_get_sctrace(unsigned long return_trace);
 

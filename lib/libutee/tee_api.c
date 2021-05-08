@@ -12,6 +12,7 @@
 #include <utee_syscalls.h>
 #include "tee_api_private.h"
 
+
 static const void *tee_api_instance_data;
 
 /* System API - Internal Client API */
@@ -412,6 +413,11 @@ void TEE_Free(void *buffer)
 	free(buffer);
 }
 
+void TEE_MallocStats(struct malloc_stats *stats)
+{
+	malloc_get_stats(stats);
+}
+
 /* Cache maintenance support (TA requires the CACHE_MAINTENANCE property) */
 TEE_Result TEE_CacheClean(char *buf, size_t len)
 {
@@ -427,13 +433,38 @@ TEE_Result TEE_CacheInvalidate(char *buf, size_t len)
 	return _utee_cache_operation(buf, len, TEE_CACHEINVALIDATE);
 }
 
-/* Benchmark API call fucntions */
+/* Benchmark API call functions */
+typedef struct time_context{
+	uint64_t start;
+	uint64_t end;
+}time_context_t;
 
-void TEE_AddSctrace(unsigned long id){
-	TEE_Result res = _utee_add_sctrace(id);
+time_context_t tc = {.start=0, .end=0};
+
+void TEE_AddSctrace(uint64_t id)
+{
+	printf("start: %ld, end: %ld\n", tc.start, tc.end);
+	
+	/* get current time */
+	uint64_t delta = 0;
+	tc.start = TEE_get_time_us();
+	if (tc.end){
+		delta = tc.start - tc.end;
+	}
+
+	/* get memory usage in TA */
+	struct malloc_stats* stats = TEE_Malloc(sizeof(struct malloc_stats), TEE_MALLOC_FILL_ZERO);
+	if (!stats){
+		return;
+	}
+	malloc_get_stats(stats);
+
+	TEE_Result res = _utee_add_sctrace(id, delta, stats->allocated);
 	if (res != TEE_SUCCESS){
 		TEE_Panic(res);
 	}
+
+	tc.end = TEE_get_time_us();
 }
 
 /*void TEE_GetSctrace(unsigned long return_trace){
@@ -448,4 +479,44 @@ void TEE_ResetSctrace(void){
 	if (res != TEE_SUCCESS){
 		TEE_Panic(res);
 	}
+}
+
+
+uint64_t TEE_get_time_us(void)
+{
+	uint64_t time = 0;
+	TEE_Result res = _utee_get_time_us(&time);
+	if (res != TEE_SUCCESS){
+		TEE_Panic(res);
+	}
+	return time;
+
+	
+	// uint64_t cntpct;
+	// uint32_t cntfrq;
+
+	// asm volatile ("isb"); // barrier
+	// asm volatile("mrs %0, cntpct_el0" : "=r" (cntpct));
+	// asm volatile("mrs %0, cntfrq_el0" : "=r" (cntfrq));
+
+	
+	// //uint64_t cntpct;
+	// uint32_t cntpct0;
+	// uint32_t cntpct1;
+	// uint32_t cntfrq;
+
+	// /*__asm volatile ("isb"); // barrier
+	// __asm volatile ("mrrc p15, 0, %Q0, %R0, c14" : "=r"  (cntpct));
+	// __asm volatile ("mrc p15, 0, %0, c14, c0, 0" : "=r" (cntfrq));*/
+
+	// __asm volatile ("isb"); // barrier
+	// __asm volatile ("mrrc p15, 0, %[arg0], %[arg1], cpsr" 
+	// 	: [arg0] "=r" (cntpct0), [arg1] "=r" (cntpct1));
+	// __asm volatile ("mrc %0, c0" 
+	// 	: "=r" (cntfrq));
+
+	//uint64_t cntpct = (uint64_t) cntpct1<<32 + cntpct0;
+
+	// return time_in_us;
+
 }

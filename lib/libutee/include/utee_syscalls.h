@@ -289,10 +289,12 @@ TEE_Result _utee_cache_operation(void *va, size_t l, unsigned long op);
 TEE_Result _utee_gprof_send(void *buf, size_t size, uint32_t *id);
 
 /* TEE Benchmark syscall */
-TEE_Result _utee_add_sctrace(unsigned long id);
+TEE_Result _utee_add_sctrace(uint64_t id, uint64_t delta, uint32_t allocated);
 
 //TEE_Result _utee_get_sctrace(unsigned long return_trace);
 
 TEE_Result _utee_reset_sctrace(void);
+
+TEE_Result _utee_get_time_us(uint64_t* time);
 
 #endif /* UTEE_SYSCALLS_H */

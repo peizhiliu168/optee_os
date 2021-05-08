@@ -95,6 +95,8 @@ void TEE_Free(void *buffer);
 
 void *TEE_MemMove(void *dest, const void *src, uint32_t size);
 
+void TEE_MallocStats(struct malloc_stats *stats);
+
 /*
  * Note: TEE_MemCompare() has a constant-time implementation (execution time
  * does not depend on buffer content but only on buffer size). It is the main
@@ -443,10 +445,12 @@ void TEE_BigIntComputeFMM(TEE_BigIntFMM *dest, const TEE_BigIntFMM *op1,
 
 /* Benchmark API calls */
 
-void TEE_AddSctrace(unsigned long id);
+void TEE_AddSctrace(uint64_t id);
 
 //void TEE_GetSctrace(unsigned long return_trace);
 
 void TEE_ResetSctrace(void);
+
+uint64_t TEE_get_time_us(void);
 
 #endif /* TEE_API_H */

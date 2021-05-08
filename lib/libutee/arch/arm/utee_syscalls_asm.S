@@ -123,8 +123,8 @@
 
         UTEE_SYSCALL _utee_cache_operation, TEE_SCN_CACHE_OPERATION, 3
 
-        UTEE_SYSCALL _utee_add_sctrace, TEE_SCN_ADD_SCTRACE, 1
+        UTEE_SYSCALL _utee_add_sctrace, TEE_SCN_ADD_SCTRACE, 3
 
-        
+        UTEE_SYSCALL _utee_get_time_us, TEE_SCN_GET_TIME_US, 1
         
         UTEE_SYSCALL _utee_reset_sctrace, TEE_SCN_RESET_SCTRACE, 0

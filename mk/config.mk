@@ -98,7 +98,7 @@ CFG_MSG_LONG_PREFIX_MASK ?= 0x1a
 CFG_WITH_SOFTWARE_PRNG ?= y
 
 # Number of threads
-CFG_NUM_THREADS ?= 2
+CFG_NUM_THREADS ?= 6
 
 # API implementation version
 CFG_TEE_API_VERSION ?= GPD-1.1-dev
@@ -329,7 +329,7 @@ endif
 CFG_EARLY_TA_COMPRESS ?= y
 
 # Enable paging, requires SRAM, can't be enabled by default
-CFG_WITH_PAGER ?= n
+CFG_WITH_PAGER ?= y
 
 # Use the pager for user TAs
 CFG_PAGED_USER_TA ?= $(CFG_WITH_PAGER)
@@ -425,7 +425,7 @@ CFG_TA_BGET_TEST ?= $(CFG_ENABLE_EMBEDDED_TESTS)
 CFG_BOOT_SECONDARY_REQUEST ?= n
 
 # Default heap size for Core, 64 kB
-CFG_CORE_HEAP_SIZE ?= 65536
+CFG_CORE_HEAP_SIZE ?= 131072
 
 # Default size of nexus heap. 16 kB. Used only if CFG_VIRTUALIZATION
 # is enabled
