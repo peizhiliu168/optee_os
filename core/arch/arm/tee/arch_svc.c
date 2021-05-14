@@ -122,6 +122,7 @@ static const struct syscall_entry tee_svc_syscall_table[] = {
 	SYSCALL_ENTRY(syscall_not_supported),
 	SYSCALL_ENTRY(syscall_cache_operation),
 	SYSCALL_ENTRY(syscall_add_sctrace),
+	SYSCALL_ENTRY(syscall_get_sctrace),
 	SYSCALL_ENTRY(syscall_reset_sctrace),
 	SYSCALL_ENTRY(syscall_get_time_us),
 };

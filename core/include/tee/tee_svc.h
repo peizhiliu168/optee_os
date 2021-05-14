@@ -77,7 +77,7 @@ TEE_Result syscall_set_ta_time(const TEE_Time *time);
 /* TEE syscall wrapper for benchmark */
 TEE_Result syscall_add_sctrace(uint64_t id, uint64_t delta, uint32_t allocated);
 
-//TEE_Result syscall_get_sctrace(unsigned long return_trace);
+TEE_Result syscall_get_sctrace(uint64_t return_trace);
 
 TEE_Result syscall_reset_sctrace(void);
 

@@ -291,7 +291,7 @@ TEE_Result _utee_gprof_send(void *buf, size_t size, uint32_t *id);
 /* TEE Benchmark syscall */
 TEE_Result _utee_add_sctrace(uint64_t id, uint64_t delta, uint32_t allocated);
 
-//TEE_Result _utee_get_sctrace(unsigned long return_trace);
+TEE_Result _utee_get_sctrace(uint64_t return_trace);
 
 TEE_Result _utee_reset_sctrace(void);
 

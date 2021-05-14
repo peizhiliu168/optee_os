@@ -1016,10 +1016,10 @@ TEE_Result syscall_add_sctrace(uint64_t id, uint64_t delta, uint32_t allocated){
 	return TEE_SUCCESS;
 }
 
-/*TEE_Result syscall_get_sctrace(unsigned long return_trace){
+TEE_Result syscall_get_sctrace(uint64_t return_trace){
 	tee_ta_get_sctrace(return_trace);
 	return TEE_SUCCESS;
-}*/
+}
 
 TEE_Result syscall_reset_sctrace(void){
 	tee_ta_reset_sctrace();

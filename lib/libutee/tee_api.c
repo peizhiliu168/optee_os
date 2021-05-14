@@ -468,12 +468,12 @@ void TEE_AddSctrace(uint64_t id)
 	tc.end = TEE_get_time_us();
 }
 
-/*void TEE_GetSctrace(unsigned long return_trace){
+void TEE_GetSctrace(uint64_t return_trace){
 	TEE_Result res = _utee_get_sctrace(return_trace);
 	if (res != TEE_SUCCESS){
 		TEE_Panic(res);
 	}
-}*/
+}
 
 void TEE_ResetSctrace(void){
 	TEE_Result res = _utee_reset_sctrace();
