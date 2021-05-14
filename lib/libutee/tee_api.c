@@ -464,6 +464,7 @@ void TEE_AddSctrace(uint64_t id)
 		TEE_Panic(res);
 	}
 
+	TEE_Free(stats);
 	tc.end = TEE_get_time_us();
 }
 
