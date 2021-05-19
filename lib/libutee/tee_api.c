@@ -437,19 +437,25 @@ TEE_Result TEE_CacheInvalidate(char *buf, size_t len)
 typedef struct time_context{
 	uint64_t start;
 	uint64_t end;
+	uint64_t overhead;
 }time_context_t;
 
-time_context_t tc = {.start=0, .end=0};
+time_context_t tc = {.start=0, .end=0, .overhead=0};
+
+void TEE_InitSctrace()
+{
+	tc.end = TEE_get_time_us();
+	tc.overhead = 0;
+}
 
 void TEE_AddSctrace(uint64_t id)
-{
-	printf("start: %ld, end: %ld\n", tc.start, tc.end);
-	
+{	
 	/* get current time */
-	uint64_t delta = 0;
 	tc.start = TEE_get_time_us();
+
+	uint64_t delta = 0;
 	if (tc.end){
-		delta = tc.start - tc.end;
+		delta = tc.start - tc.end - tc.overhead;
 	}
 
 	/* get memory usage in TA */
@@ -459,19 +465,29 @@ void TEE_AddSctrace(uint64_t id)
 	}
 	malloc_get_stats(stats);
 
+	/* syscall to add trace */
 	TEE_Result res = _utee_add_sctrace(id, delta, stats->allocated);
 	if (res != TEE_SUCCESS){
 		TEE_Panic(res);
 	}
 
 	TEE_Free(stats);
+
+	tc.overhead = 0;
 	tc.end = TEE_get_time_us();
 }
 
 void TEE_GetSctrace(uint64_t return_trace){
+	uint64_t start = TEE_get_time_us();
+
 	TEE_Result res = _utee_get_sctrace(return_trace);
 	if (res != TEE_SUCCESS){
 		TEE_Panic(res);
+	}
+
+	uint64_t end = TEE_get_time_us();
+	if (end > start) {
+		tc.overhead += end - start;
 	}
 }
 
@@ -480,9 +496,12 @@ void TEE_ResetSctrace(void){
 	if (res != TEE_SUCCESS){
 		TEE_Panic(res);
 	}
+
+	TEE_InitSctrace();
 }
 
-
+// should be ~20-25us additional overhead on
+// Peizhi's machine. 
 uint64_t TEE_get_time_us(void)
 {
 	uint64_t time = 0;
